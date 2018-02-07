@@ -1,6 +1,6 @@
-// 资源文件加载器，确保 canvas 在图片资源加载完成后才进行渲染
 import Resources from './Resources.js'
 
+// 资源文件加载器，确保 canvas 在图片资源加载完成后才进行渲染
 export default class ResourceLoader {
   constructor() {
     this.map = new Map(Resources)
