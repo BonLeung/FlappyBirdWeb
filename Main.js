@@ -10,6 +10,7 @@ export default class Main {
     this.canvas = document.getElementById('game_canvas')
     this.ctx = this.canvas.getContext('2d')
     this.dataStore = DataStore.getInstance()
+    this.director = Director.getInstance()
     const loader = ResourceLoader.create()
     loader.onLoaded(map => this.onResourceFirstLoaded(map))
   }
@@ -21,9 +22,15 @@ export default class Main {
   }
 
   init() {
+    // 首先重置游戏结束的标志
+    this.director.isGameOver = false
+
     this.dataStore.put('background', Background)
                   .put('land', Land)
+                  .put('pencils', [])
 
-    Director.getInstance().run()
+    // 创建铅笔要在游戏逻辑运行之前
+    this.director.createPencil()
+    this.director.run()
   }
 }
