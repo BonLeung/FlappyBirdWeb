@@ -4,6 +4,8 @@ import Director from './js/Director.js';
 import Background from './js/runtime/Background.js';
 import DataStore from './js/base/DataStore.js';
 import Land from './js/runtime/Land.js';
+import Birds from './js/player/Birds.js';
+import StartButton from './js/player/StartButton.js';
 
 export default class Main {
   constructor() {
@@ -27,10 +29,26 @@ export default class Main {
 
     this.dataStore.put('background', Background)
                   .put('land', Land)
+                  .put('birds', Birds)
+                  .put('startButton', StartButton)
                   .put('pencils', [])
+
+    this.registerEvent()
 
     // 创建铅笔要在游戏逻辑运行之前
     this.director.createPencil()
     this.director.run()
+  }
+
+  registerEvent() {
+    this.canvas.addEventListener('touchstart', e => {
+      e.preventDefault()
+      if (this.director.isGameOver) {
+        console.log('游戏开始')
+        this.init()
+      } else {
+        this.director.birdsEvent()
+      }
+    })
   }
 }
