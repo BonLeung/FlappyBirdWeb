@@ -43,6 +43,7 @@ export default class Director {
       if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
         pencils.shift()
         pencils.shift()
+        this.dataStore.get('score').addFlag = true
       }
 
       if (pencils[0].x <= (window.innerWidth - pencils[0].width) / 2 && pencils.length === 2) {
@@ -77,6 +78,7 @@ export default class Director {
     const birds = this.dataStore.get('birds')
     const land = this.dataStore.get('land')
     const pencils = this.dataStore.get('pencils')
+    const score = this.dataStore.get('score')
 
    // 小鸟撞击地板
     if (birds.birdsY[0] + birds.birdsHeight[0] >= land.y) {
@@ -107,6 +109,12 @@ export default class Director {
       }
     }
 
+    // 加分逻辑
+    if (birds.birdsX[0] > pencils[0].x + pencils[0].width && score.addFlag) {
+      score.scoreNumber++
+      score.addFlag = false
+    }
+
   }
 
   run() {
@@ -116,6 +124,7 @@ export default class Director {
 
       this.drawPencil()
 
+      const score = this.dataStore.get('score').draw()
       const land = this.dataStore.get('land').draw()
       const birds = this.dataStore.get('birds').draw()
 

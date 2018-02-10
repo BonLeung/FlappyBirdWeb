@@ -6,6 +6,7 @@ import DataStore from './js/base/DataStore.js';
 import Land from './js/runtime/Land.js';
 import Birds from './js/player/Birds.js';
 import StartButton from './js/player/StartButton.js';
+import Score from './js/player/Score.js';
 
 export default class Main {
   constructor() {
@@ -31,6 +32,7 @@ export default class Main {
                   .put('land', Land)
                   .put('birds', Birds)
                   .put('startButton', StartButton)
+                  .put('score', Score)
                   .put('pencils', [])
 
     this.registerEvent()
